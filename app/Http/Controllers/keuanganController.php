@@ -37,9 +37,9 @@ class keuanganController extends Controller
         $total_pemasukan = $pemasukan->pluck('total')->sum();
 
         $chartPemasukan = (new LarapexChart)->donutChart()
+            ->addData([$pms_kerja, $pms_bisnis, $pms_freelance, $pms_pemberian, $pms_penjualan, $pms_lainya])
             ->setTitle('Pemasukan')
             ->setSubtitle('Tahun 2024')
-            ->addData([$pms_kerja, $pms_bisnis, $pms_freelance, $pms_pemberian, $pms_penjualan, $pms_lainya])
             ->setHeight(400)
             ->setWidth(400)
             ->setLabels(['Kerja', 'Bisnis', 'Freelance', 'Pemberian', 'Penjualan', 'Lainya']);
@@ -56,14 +56,14 @@ class keuanganController extends Controller
         $total_akhir_tabungan = $total_pemasukan - $total_pengeluaran;
 
         $chartPengeluaran = (new LarapexChart)->donutChart()
+            ->addData([$png_makan, $png_tansportasi, $png_jalan, $png_handpone, $png_peliharaan, $png_lainya])
             ->setTitle('Pengeluaran')
             ->setSubtitle('Tahun 2024')
-            ->addData([$png_makan, $png_tansportasi, $png_jalan, $png_handpone, $png_peliharaan, $png_lainya])
             ->setHeight(400)
             ->setWidth(400)
             ->setLabels(['Makan', 'Transportasi', 'Jalan-Jalan', 'Handpone', 'Peliharaan', 'Lainya']);
 
-        return view('page.keuangan', compact('date', 'pemasukan', 'pengeluaran', 'chartPemasukan', 'chartPengeluaran', 'total_akhir_tabungan'));
+        return view('page.keuangan', compact('data', 'date', 'pemasukan', 'pengeluaran', 'chartPemasukan', 'chartPengeluaran', 'total_akhir_tabungan'));
     }
 
     public function pemasukan(Request $request)
